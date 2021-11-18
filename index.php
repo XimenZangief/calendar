@@ -9,6 +9,8 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta2/css/all.min.css">
     <style>
         body {
+            background: url("./SFV.png");
+            background-size: cover;
             box-sizing: border-box;
             margin: 0;
             padding: 0;
@@ -16,29 +18,33 @@
             font-family: 'Courier New', 'Courier', 'monospace';
             font-size: 1.5rem;
             font-weight: bold;
+            opacity: 0.8;
         }
 
-        .month-change {
-            width: 60%;
+        .header {
+            width: 100%;
             background-color: skyblue;
-            border-radius: 20px 20px;
             color: wheat;
-            padding: 50px 0;
-            margin: 1rem auto;
+            padding: 0;
             font-size: 5.5rem;
             text-shadow: 2px 2px 5px grey;
+            box-shadow: 2px 0px 10px black;
         }
+
         table {
-            width: 60vw;
-            height: 50vh;
-            margin: 20px auto 0;
+            background: lightskyblue;
+            width: 750px;
+            height: 500px;
+            margin: 10px auto 0;
             padding: 20px;
         }
 
         td {
-            padding: 10px;
+            background: lightgrey;
+            opacity: 0.9;
+            width: calc(750px / 7);
+            height: calc(500px / 5);
             border: 1px double black;
-            font-size: 1.5rem;
         }
 
         td:hover {
@@ -47,22 +53,41 @@
             background-color: black;
             color: whitesmoke;
             cursor: cell;
-            font-size: 1.5em;
             padding: 0;
         }
 
         .holiday {
             background-color: pink;
         }
-        .holiday:hover{
+
+        .specialday {
+            background-color: lightcoral;
+            color: yellow;
+            text-shadow: 0.1em 0.1em 0.2em black;
+            box-shadow: 0.1em 0.1em 0.2em black;
+        }
+
+        .holiday:hover,
+        .specialday:hover {
             background-color: skyblue;
-            color:red;
+            color: red;
             text-shadow: black 2px 2px;
         }
 
         a {
             text-decoration: none;
             font-size: 2rem;
+        }
+
+        .footer {
+            width: 100%;
+            position: fixed;
+            opacity: 0.8;
+            bottom: 0px;
+            background-color: black;
+            color: white;
+            padding: 10px;
+            font-size: 1.5rem;
         }
     </style>
     <?php
@@ -94,6 +119,7 @@
         $nextyear = $year + 1;
     }
 
+
     // 星期日~六做成陣列
     $daysOfWeek = array('日', '一', '二', '三', '四', '五', '六');
     // echo '<pre>';
@@ -114,6 +140,14 @@
 
     // 抓當月有幾天
     $numberDays = date('t', $firstDayOfMonth);
+    $specialDate = [
+        '7-21' => '　隆　', '2-14' => '　肯　', '8-22' => '巴蒂 ', '7-2' => '沙卡特', '3-1' => '　春麗',
+        '12-23' => '凱爾 ', '11-3' => '本田 ', '6-1' => '老桑 ', '2-12' => '布蘭卡', '11-22' => '塔爾錫', '9-4' => '拳王 ',
+        '1-27' => '爪子 ', '4-17' => '將軍 ', '1-6' => '倩咪 ', '7-3' => '蘿絲 ', '11-25' => '火影彈', '3-15' => '春日櫻',
+        '4-18' => '科迪 ', '9-15' => '卡琳 ', '3-15' => 'R.MIKA', '5-15' => 'ALEX', '12-6' => '伊吹 ', '1-1' => '茱莉 ',
+        '12-7' => 'POISON', '1-11' => '古代人', '6-7' => '拉希德', '7-30' => '菈菈 ', '2-2' => '　方　', '9-3' => '　ED　',
+        '10-16' => '阿比蓋', '12-29' => '是空 ', '5-25' => 'FALKE', '4-1' => '露西亞', '3-3' => 'AKIRA'
+    ];
 
     // 印出表格及標題
     $calendar = "<table>" . "<tr>";
@@ -132,10 +166,17 @@
             $calendar .= "</tr><tr>";
             $dayOfWeek = 0;
         }
-        if (($dayOfWeek == 0) || ($dayOfWeek == 6)) {
-            $calendar .= "<td class='holiday'> $i </td>";
+        if (is_numeric($i)) {
+            $date = date("$month-") . $i;
+        }
+        if (isset($date) && array_key_exists($date, $specialDate)) {
+            $calendar .= "<td class='specialday'> &nbsp;$i&nbsp; $specialDate[$date]生日</td>";
         } else {
-            $calendar .= "<td> $i </td>";
+            if (($dayOfWeek == 0) || ($dayOfWeek == 6)) {
+                $calendar .= "<td class='holiday'> $i </td>";
+            } else {
+                $calendar .= "<td> $i </td>";
+            }
         }
     }
     // 補足剩餘的空格
@@ -144,15 +185,42 @@
     }
     $calendar .= "</tr></table>";
     ?>
+    <script>
+        function display_time() {
+            var now = new Date();
+            var hh = now.getHours();
+            var mm = now.getMinutes();
+            var ss = now.getSeconds();
+            hh = check(hh);
+            mm = check(mm);
+            ss = check(ss);
+            document.getElementById("clock").innerHTML = hh + ":" + mm + ":" + ss;
+        }
+
+        function check(a) {
+            if (a < 10) return "0" + a;
+            else return a;
+        }
+
+        window.onload = function() {
+            setInterval(display_time, 500);
+        }
+    </script>
 </head>
 
 <body>
-    <div class="month-change">
-        <a href="index.php?year=<?= $lastyear; ?>&month=<?= $lastmonth; ?>"><?= $lastmonth ;?>月<i class="fas fa-chevron-circle-left"></i></a>
-        <?=$year;?>年<?=$month;?>月
-        <a href="index.php?year=<?= $nextyear; ?>&month=<?= $nextmonth; ?>"><i class="fas fa-chevron-circle-right"></i><?= $nextmonth ;?>月</a>
-    </div>
+    <header class="header">
+        <a href="index.php?year=<?= $lastyear; ?>&month=<?= $lastmonth; ?>"><?= $lastmonth; ?>月<i class="fas fa-chevron-circle-left"></i></a>
+        <?= $year; ?>年<?= $month; ?>月
+        <a href="index.php?year=<?= $nextyear; ?>&month=<?= $nextmonth; ?>"><i class="fas fa-chevron-circle-right"></i><?= $nextmonth; ?>月</a>
+    </header>
+
     <?= $calendar; ?>
+
+    <footer class="footer">
+        現在是 <?= date("Y/n/j", time()); ?> <span id="clock">88:88:88</span>
+    </footer>
+
 </body>
 
 </html>
