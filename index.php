@@ -84,7 +84,7 @@
             position: fixed;
             opacity: 0.8;
             bottom: 0px;
-            background-color: black;
+            background-color: #555;
             color: white;
             padding: 10px;
             font-size: 1.5rem;
