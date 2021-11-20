@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta2/css/all.min.css">
     <link rel="stylesheet" href="./style.css">
     <script src="./clock.js"></script>
+
     <?php
     date_default_timezone_set('Asia/Taipei'); //取得時區並在開啟時填入年月
     // $year = date('Y');
@@ -104,19 +105,30 @@
     }
     $calendar .= "</tr></table>";
     ?>
+
+    <style>
+        body {
+            background: url("./img/SFV-<?= $month; ?>.jpg");
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            background-position: center;
+            opacity: 0.8;
+        }
+    </style>
 </head>
 
 <body onload="startTime()">
-    <header class="header">
-        <a href="index.php?year=<?= $lastyear; ?>&month=<?= $lastmonth; ?>"><?= $lastmonth; ?> 月<i class="fas fa-chevron-circle-left"></i></a>
-        <?= $year; ?>年<?= $month; ?>月
-        <a href="index.php?year=<?= $nextyear; ?>&month=<?= $nextmonth; ?>"><i class="fas fa-chevron-circle-right"></i><?= $nextmonth; ?> 月</a>
-    </header>
-
-    <?= $calendar; ?>
-
+        <header class="header">
+            <?= $year; ?>年<?= $month; ?>月
+        </header>
+    <div class="main">
+        <a href="index.php?year=<?= $lastyear; ?>&month=<?= $lastmonth; ?>"><?= $lastmonth; ?> 月&nbsp;&nbsp;<i class="fas fa-chevron-circle-left fa-1x"></i></a>
+        <?= $calendar; ?>
+        <a href="index.php?year=<?= $nextyear; ?>&month=<?= $nextmonth; ?>"><i class="fas fa-chevron-circle-right fa-1x"></i>&nbsp;&nbsp;<?= $nextmonth; ?>月</a>
+    </div>
     <footer class="footer">
-        <?= date(" Y / n / j ", time()); ?>&nbsp;&nbsp;&nbsp;<span id="clock">88:88:88</span>
+        <a href="index.php"><?= date(" Y / n / j ", time()); ?>&nbsp;&nbsp;&nbsp;<span id="clock">88:88:88</span></a>
     </footer>
 </body>
 
