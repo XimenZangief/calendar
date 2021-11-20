@@ -5,93 +5,13 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>萬年曆</title>
+    <title>線上萬年曆</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta2/css/all.min.css">
-    <style>
-        body {
-            background: url("./SFV.png");
-            background-size: cover;
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            text-align: center;
-            font-family: 'Courier New', 'Courier', 'monospace';
-            font-size: 1.5rem;
-            font-weight: bold;
-            opacity: 0.8;
-        }
-
-        .header {
-            width: 100%;
-            background-color: skyblue;
-            color: wheat;
-            padding: 0;
-            font-size: 5.5rem;
-            text-shadow: 2px 2px 5px grey;
-            box-shadow: 2px 0px 10px black;
-        }
-
-        table {
-            background: lightskyblue;
-            width: 750px;
-            height: 500px;
-            margin: 10px auto 0;
-            padding: 20px;
-        }
-
-        td {
-            background: lightgrey;
-            opacity: 0.9;
-            width: calc(750px / 7);
-            height: calc(500px / 5);
-            border: 1px double black;
-        }
-
-        td:hover {
-            border: 1px double black;
-            border-radius: 30px;
-            background-color: black;
-            color: whitesmoke;
-            cursor: cell;
-            padding: 0;
-        }
-
-        .holiday {
-            background-color: pink;
-        }
-
-        .specialday {
-            background-color: lightcoral;
-            color: yellow;
-            text-shadow: 0.1em 0.1em 0.2em black;
-            box-shadow: 0.1em 0.1em 0.2em black;
-        }
-
-        .holiday:hover,
-        .specialday:hover {
-            background-color: skyblue;
-            color: red;
-            text-shadow: black 2px 2px;
-        }
-
-        a {
-            text-decoration: none;
-            font-size: 2rem;
-        }
-
-        .footer {
-            width: 100%;
-            position: fixed;
-            opacity: 0.8;
-            bottom: 0px;
-            background-color: black;
-            color: white;
-            padding: 10px;
-            font-size: 1.5rem;
-        }
-    </style>
+    <link rel="stylesheet" href="./style.css">
+    <script src="./clock.js"></script>
     <?php
-    date_default_timezone_set('Asia/Taipei');
+    date_default_timezone_set('Asia/Taipei'); //取得時區並在開啟時填入年月
     // $year = date('Y');
     // $month = date('m');
     if (isset($_GET['month'])) {
@@ -102,11 +22,10 @@
         $year = date("Y");
     }
 
-    $lastmonth = $month - 1;
+    $lastmonth = $month - 1;    //事先處理上下個月的顯示
     $lastyear = $year;
     $nextmonth = $month + 1;
     $nextyear = $year;
-
     if ($month == 1) {
         $lastmonth = 12;
         $lastyear = $year - 1;
@@ -149,7 +68,7 @@
         '10-16' => '阿比蓋', '12-29' => '是空 ', '5-25' => 'FALKE', '4-1' => '露西亞', '3-3' => 'AKIRA'
     ];
 
-    // 印出表格及標題
+    // 印出表格及標題(使用 .= 處理)
     $calendar = "<table>" . "<tr>";
     foreach ($daysOfWeek as $day) {
         $calendar .= "<th>$day</th>";
@@ -158,7 +77,7 @@
 
     // 根據$dayOfWeek的值(0~6)決定colspan要拉多長
     if ($dayOfWeek > 0) {
-        $calendar .= "<td colspan= '$dayOfWeek' ></td>";
+        $calendar .= "<td class='span' colspan= '$dayOfWeek'></td>";
     }
     for ($i = 1; $i <= $numberDays; $i++, $dayOfWeek++) {
         // $dayOfWeek達到7即歸零換行
@@ -181,38 +100,17 @@
     }
     // 補足剩餘的空格
     if ($dayOfWeek != 7) {
-        $calendar .= "<td colspan= " . (7 - $dayOfWeek) . "></td>";
+        $calendar .= "<td  class='span' colspan= " . (7 - $dayOfWeek) . "></td>";
     }
     $calendar .= "</tr></table>";
     ?>
-    <script>
-        function display_time() {
-            var now = new Date();
-            var hh = now.getHours();
-            var mm = now.getMinutes();
-            var ss = now.getSeconds();
-            hh = check(hh);
-            mm = check(mm);
-            ss = check(ss);
-            document.getElementById("clock").innerHTML = hh + ":" + mm + ":" + ss;
-        }
-
-        function check(a) {
-            if (a < 10) return "0" + a;
-            else return a;
-        }
-
-        window.onload = function() {
-            setInterval(display_time, 500);
-        }
-    </script>
 </head>
 
 <body>
     <header class="header">
-        <a href="index.php?year=<?= $lastyear; ?>&month=<?= $lastmonth; ?>"><?= $lastmonth; ?>月<i class="fas fa-chevron-circle-left"></i></a>
+        <a href="index.php?year=<?= $lastyear; ?>&month=<?= $lastmonth; ?>"><?= $lastmonth; ?> 月<i class="fas fa-chevron-circle-left"></i></a>
         <?= $year; ?>年<?= $month; ?>月
-        <a href="index.php?year=<?= $nextyear; ?>&month=<?= $nextmonth; ?>"><i class="fas fa-chevron-circle-right"></i><?= $nextmonth; ?>月</a>
+        <a href="index.php?year=<?= $nextyear; ?>&month=<?= $nextmonth; ?>"><i class="fas fa-chevron-circle-right"></i><?= $nextmonth; ?> 月</a>
     </header>
 
     <?= $calendar; ?>
@@ -220,7 +118,5 @@
     <footer class="footer">
         現在是 <?= date("Y/n/j", time()); ?> <span id="clock">88:88:88</span>
     </footer>
-
 </body>
-
 </html>
