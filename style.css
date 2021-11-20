@@ -1,3 +1,6 @@
+@import url('https://fonts.googleapis.com/css2?family=ZCOOL+QingKe+HuangYou&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Wallpoet&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap');
 body {
   background: url("./SFV.png");
   background-size: cover;
@@ -13,6 +16,7 @@ body {
 }
 
 .header {
+  font-family: 'Wallpoet', 'cursive';
   width: 100%;
   background-color: skyblue;
   color: wheat;
@@ -23,6 +27,7 @@ body {
 }
 
 table {
+  font-family: 'Share Tech Mono', 'monospace';
   background-image: linear-gradient(
     to right,
     rgb(247, 65, 73),
@@ -87,6 +92,7 @@ a {
 }
 
 .footer {
+  font-family: 'ZCOOL QingKe HuangYou', 'cursive';
   width: 100%;
   position: fixed;
   opacity: 0.8;

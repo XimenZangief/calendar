@@ -106,7 +106,7 @@
     ?>
 </head>
 
-<body>
+<body onload="startTime()">
     <header class="header">
         <a href="index.php?year=<?= $lastyear; ?>&month=<?= $lastmonth; ?>"><?= $lastmonth; ?> 月<i class="fas fa-chevron-circle-left"></i></a>
         <?= $year; ?>年<?= $month; ?>月
@@ -116,7 +116,8 @@
     <?= $calendar; ?>
 
     <footer class="footer">
-        現在是 <?= date("Y/n/j", time()); ?> <span id="clock">88:88:88</span>
+        <?= date(" Y / n / j ", time()); ?>&nbsp;&nbsp;&nbsp;<span id="clock">88:88:88</span>
     </footer>
 </body>
+
 </html>
