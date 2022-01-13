@@ -1,0 +1,104 @@
+@import url('https://fonts.googleapis.com/css2?family=ZCOOL+QingKe+HuangYou&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Wallpoet&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&display=swap');
+body {
+  background: url("./SFV.png");
+  background-size: cover;
+  box-sizing: border-box;
+  overflow: hidden;
+  margin: 0;
+  padding: 0;
+  text-align: center;
+  font-family: "Courier New", "Courier", "monospace";
+  font-size: 1.5rem;
+  font-weight: bold;
+  opacity: 0.8;
+}
+
+.header {
+  font-family: 'Wallpoet', 'cursive';
+  width: 100%;
+  background-color: skyblue;
+  color: wheat;
+  padding: 20px 0;
+  font-size: 5.5rem;
+  text-shadow: 2px 2px 5px grey;
+  box-shadow: 2px 0px 10px black;
+}
+
+table {
+  font-family: 'Share Tech Mono', 'monospace';
+  background-image: linear-gradient(
+    to right,
+    rgb(247, 65, 73),
+    rgb(34, 93, 220)
+  );
+  width: 750px;
+  height: 500px;
+  margin: auto;
+  padding: 20px;
+  border-radius: 50px 50px;
+}
+
+th {
+  padding-bottom: 20px;
+  font-size: 2rem;
+}
+
+td {
+  background: lightgrey;
+  opacity: 0.9;
+  width: calc(750px / 7);
+  height: calc(500px / 5);
+  border: 1px double black;
+  border-radius: 10px 10px;
+}
+
+td:hover {
+  border: 1px double black;
+  border-radius: 100px;
+  background-color: black;
+  color: whitesmoke;
+  cursor: cell;
+  padding: 0;
+}
+
+.holiday {
+  background-color: tomato;
+  color: white;
+}
+
+.specialday {
+  background-color: lightcoral;
+  color: yellow;
+  text-shadow: 0.1em 0.1em 0.2em black;
+  box-shadow: 0.1em 0.1em 0.2em black;
+}
+
+.holiday:hover,
+.specialday:hover {
+  background-color: skyblue;
+  color: red;
+  text-shadow: black 2px 2px;
+}
+
+.span {
+  opacity: 0;
+}
+
+a {
+  text-decoration: none;
+  font-size: 2.5rem;
+}
+
+.footer {
+  font-family: 'ZCOOL QingKe HuangYou', 'cursive';
+  width: 100%;
+  position: fixed;
+  opacity: 0.8;
+  bottom: 0px;
+  background-color: black;
+  color: white;
+  padding: 10px;
+  font-size: 1.5rem;
+}
